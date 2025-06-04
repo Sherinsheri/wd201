@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     static async overdue() {
       const today = new Date().toISOString().split("T")[0];
       const allTodos = await Todo.findAll({ order: [["id", "ASC"]] });
-      return allTodos.filter(todo => todo.dueDate < today && !todo.completed);
+      return allTodos.filter(todo => todo.dueDate < today);
     }
 
     static async dueToday() {
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     static async dueLater() {
       const today = new Date().toISOString().split("T")[0];
       const allTodos = await Todo.findAll({ order: [["id", "ASC"]] });
-      return allTodos.filter(todo => todo.dueDate > today && !todo.completed);
+      return allTodos.filter(todo => todo.dueDate > today);
     }
 
     static async markAsComplete(id) {

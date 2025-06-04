@@ -22,7 +22,14 @@ module.exports = (sequelize, DataTypes) => {
 
       console.log("Due Today");
       const dueTodayItems = await Todo.dueToday();
-      dueTodayItems.forEach((item) => console.log(item.displayableString()));
+     // dueTodayItems.forEach((item) => console.log(item.displayableString()));
+      const today = new Date().toISOString().split("T")[0];
+      dueTodays.forEach((todo) => {
+      let output = todo.displayableString();
+      // remove date if it's today
+      output = output.replace(` ${today}`, "");
+      console.log(output);
+  });
       console.log("\n");
 
       console.log("Due Later");

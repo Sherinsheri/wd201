@@ -22,14 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 
       console.log("Due Today");
       const dueTodayItems = await Todo.dueToday();
-     // dueTodayItems.forEach((item) => console.log(item.displayableString()));
-      const today = new Date().toISOString().split("T")[0];
-      dueTodays.forEach((todo) => {
-      let output = todo.displayableString();
-      // remove date if it's today
-      output = output.replace(` ${today}`, "");
-      console.log(output);
-  });
+      dueTodayItems.forEach((item) => console.log(item.displayableString()));
       console.log("\n");
 
       console.log("Due Later");
@@ -64,6 +57,11 @@ module.exports = (sequelize, DataTypes) => {
     }
     displayableString() {
       let checkbox = this.completed ? "[x]" : "[ ]";
+      const today = new Date().toISOString().split("T")[0];
+      //this.dueDate = this.dueDate === today ? "" : ` ${this.dueDate}`;
+      if(this.dueDate === today){
+        return `${this.id}. ${checkbox} ${this.title}`;
+      }
       return `${this.id}. ${checkbox} ${this.title} ${this.dueDate}`;
     }
   }
